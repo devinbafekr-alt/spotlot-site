@@ -58,3 +58,4 @@ footer a { color: var(--muted); margin-right: 16px; }
   .hero img { max-width: 220px; order: -1; }
   nav a { margin-left: 12px; }
 }
+.doc h3 { font-size: 17px; margin: 20px 0 4px; }
