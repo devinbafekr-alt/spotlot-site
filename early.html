@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Get early access — Spotlot</title>
+<meta name="description" content="Earn from your empty driveway or condo spot in downtown Toronto. Join the Spotlot early list.">
+<meta property="og:title" content="Your downtown parking spot could pay you">
+<meta property="og:description" content="Spotlot lets drivers book private driveways and condo spots in downtown Toronto. Join the early list.">
+<meta property="og:image" content="logo.png">
+<link rel="icon" href="favicon.png">
+<link rel="stylesheet" href="style.css">
+<style>
+  .early { background: var(--green); color: #fff; padding: 32px 0 56px; }
+  .early .wrap { display: grid; grid-template-columns: 1fr 1fr; grid-template-areas: "intro form" "details form"; column-gap: 40px; align-items: start; }
+  .intro { grid-area: intro; }
+  .details { grid-area: details; }
+  #form { grid-area: form; }
+  .early h1 { font-size: clamp(32px, 6vw, 50px); line-height: 1.05; margin: 8px 0 14px; letter-spacing: -1px; }
+  .early h1 span { color: var(--yellow); }
+  .early .lead { color: var(--green-ink); font-size: 18px; margin: 0 0 20px; }
+  .perks { list-style: none; padding: 0; margin: 0 0 8px; display: grid; gap: 10px; }
+  .perks li { display: flex; gap: 10px; align-items: flex-start; color: #E6F0EC; font-size: 16px; }
+  .perks b { color: #fff; }
+  .tick { flex: none; width: 22px; height: 22px; border-radius: 11px; background: var(--yellow); color: var(--green); font-weight: 900; font-size: 13px; display: inline-flex; align-items: center; justify-content: center; margin-top: 2px; }
+  .badge { display: inline-block; background: rgba(242, 183, 5, .16); color: var(--yellow); font-weight: 800; font-size: 13px; letter-spacing: .5px; padding: 6px 12px; border-radius: 999px; }
+  .areas { color: var(--green-ink); font-size: 14px; margin-top: 18px; }
+
+  form.card { color: var(--ink); padding: 24px; box-shadow: 0 18px 40px rgba(0,0,0,.18); border: 0; }
+  form h2 { font-size: 22px; margin: 0 0 4px; }
+  form .sub { color: var(--muted); font-size: 15px; margin: 0 0 16px; }
+  .toggle { display: grid; grid-template-columns: 1fr 1fr; background: var(--bg); border-radius: 12px; padding: 4px; margin-bottom: 16px; }
+  .toggle button { border: 0; background: none; padding: 10px; border-radius: 9px; font: inherit; font-weight: 700; font-size: 15px; color: var(--muted); cursor: pointer; }
+  .toggle button[aria-pressed="true"] { background: var(--green); color: #fff; }
+  label { display: block; font-weight: 700; font-size: 14px; margin: 12px 0 6px; }
+  input, select, textarea { width: 100%; font: inherit; font-size: 16px; padding: 12px 14px; border: 2px solid var(--border); border-radius: 12px; background: #fff; color: var(--ink); }
+  input:focus, select:focus, textarea:focus { outline: none; border-color: var(--green); }
+  .row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .hp { position: absolute; left: -9999px; }
+  .submit { width: 100%; margin-top: 18px; border: 0; background: var(--yellow); color: var(--ink); font: inherit; font-weight: 800; font-size: 17px; padding: 14px; border-radius: 12px; box-shadow: 0 4px 0 #C99500; cursor: pointer; }
+  .submit:active { transform: translateY(2px); box-shadow: 0 2px 0 #C99500; }
+  .submit[disabled] { opacity: .6; cursor: wait; }
+  .fine { color: var(--muted); font-size: 13px; margin: 12px 0 0; text-align: center; }
+  .error { color: #C62828; font-weight: 600; font-size: 14px; margin: 10px 0 0; min-height: 1em; }
+  .done { text-align: center; padding: 24px 8px; }
+  .done img { width: 110px; }
+  .done h2 { margin: 10px 0 6px; }
+  [hidden] { display: none !important; }
+
+  .how .grid .card p { font-size: 15px; }
+  @media (max-width: 760px) {
+    .early .wrap { grid-template-columns: 1fr; grid-template-areas: "intro" "form" "details"; row-gap: 24px; }
+    .row { grid-template-columns: 1fr; gap: 0; }
+  }
+</style>
+</head>
+<body>
+<header class="site">
+  <div class="wrap">
+    <a class="brand" href="./"><img src="logo.png" alt="">Spotlot</a>
+    <nav><a href="./">Home</a><a href="support.html">Support</a></nav>
+  </div>
+</header>
+
+<div class="early">
+  <div class="wrap">
+    <div class="intro">
+      <span class="badge">LAUNCHING IN DOWNTOWN TORONTO</span>
+      <h1>Your parking spot sits empty all day. <span>Get paid for it.</span></h1>
+      <p class="lead">Spotlot lets drivers book private driveways, garages and condo spots by the hour. Join the early list and we'll help you set up your spot before launch.</p>
+    </div>
+    <div class="details">
+      <ul class="perks">
+        <li><span class="tick">✓</span><span><b>Founding hosts pay 0% Spotlot fees for their first 3 months</b> (first 50 hosts).</span></li>
+        <li><span class="tick">✓</span><span><b>You choose the hours and the price.</b> Pause anytime.</span></li>
+        <li><span class="tick">✓</span><span><b>Every driver pays upfront</b> and is matched to a licence plate. Your address stays private until they book.</span></li>
+        <li><span class="tick">✓</span><span><b>Payouts straight to your bank</b> through Stripe.</span></li>
+      </ul>
+      <p class="areas">Starting with: Liberty Village · King West · Entertainment District · CityPlace · Fort York · St. Lawrence · Distillery · Corktown · Kensington · Little Italy · the Annex · Leslieville</p>
+    </div>
+
+    <form class="card" id="form" novalidate>
+      <div id="fields">
+        <h2>Get early access</h2>
+        <p class="sub">Takes 30 seconds. No commitment.</p>
+        <div class="toggle" role="group" aria-label="I want to">
+          <button type="button" data-role="host" aria-pressed="true">List my spot</button>
+          <button type="button" data-role="driver" aria-pressed="false">Find parking</button>
+        </div>
+
+        <div class="row">
+          <div>
+            <label for="name">First name</label>
+            <input id="name" name="name" autocomplete="given-name" maxlength="80" required>
+          </div>
+          <div>
+            <label for="postal">Postal code</label>
+            <input id="postal" name="postal" autocomplete="postal-code" placeholder="M6K 1A1" maxlength="7" required>
+          </div>
+        </div>
+
+        <label for="email">Email</label>
+        <input id="email" name="email" type="email" autocomplete="email" maxlength="200" placeholder="you@example.com" required>
+
+        <div id="hostOnly">
+          <div class="row">
+            <div>
+              <label for="type">What kind of spot?</label>
+              <select id="type" name="type">
+                <option value="driveway">Driveway</option>
+                <option value="condo">Condo / apartment spot</option>
+                <option value="garage">Garage</option>
+                <option value="lot">Small lot (business, church…)</option>
+                <option value="other">Something else</option>
+              </select>
+            </div>
+            <div>
+              <label for="spaces">How many cars fit?</label>
+              <input id="spaces" name="spaces" type="number" inputmode="numeric" min="1" max="200" value="1">
+            </div>
+          </div>
+        </div>
+
+        <label for="note" id="noteLabel">Anything we should know? (optional)</label>
+        <textarea id="note" name="note" rows="2" maxlength="500" placeholder="e.g. free weekdays 9–5, near BMO Field"></textarea>
+
+        <input class="hp" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <button class="submit" type="submit" id="submit">Save my spot on the list</button>
+        <p class="error" id="error" role="alert"></p>
+        <p class="fine">We'll only email you about Spotlot's launch. <a href="privacy.html">Privacy</a></p>
+      </div>
+
+      <div class="done" id="done" hidden>
+        <img src="logo.png" alt="">
+        <h2>You're on the list!</h2>
+        <p class="sub" id="doneText">We'll email you before launch to help set up your spot.</p>
+        <p class="fine">Know a neighbour with an empty driveway? Send them this page.</p>
+      </div>
+    </form>
+  </div>
+</div>
+
+<section class="how">
+  <div class="wrap">
+    <h2>How hosting works</h2>
+    <div class="grid">
+      <div class="card"><span class="num">1</span><h3>List in 5 minutes</h3><p>Snap a photo, drop a pin, set your hours and price.</p></div>
+      <div class="card"><span class="num">2</span><h3>Drivers book and pay</h3><p>They see a rough area until they've paid, then get your directions and spot photo.</p></div>
+      <div class="card"><span class="num">3</span><h3>You get paid</h3><p>You keep 85% of every booking, deposited to your bank. Founding hosts keep 100% for 3 months.</p></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div>© 2026 Spotlot · Toronto, Ontario, Canada</div>
+    <div><a href="support.html">Support</a><a href="terms.html">Terms of Service</a><a href="privacy.html">Privacy Policy</a></div>
+  </div>
+</footer>
+
+<script>
+  // Writes straight to the Spotlot waitlist table. This is the public (publishable) key;
+  // the table only allows inserts from the public, never reads.
+  const SUPABASE_URL = 'https://rsviueqeqylmddhgpyfo.supabase.co';
+  const SUPABASE_KEY = 'sb_publishable_UoHOdmgwTMQKS_Qfu5H4uA_GMwX83xe';
+
+  const form = document.getElementById('form');
+  const error = document.getElementById('error');
+  const submit = document.getElementById('submit');
+  const hostOnly = document.getElementById('hostOnly');
+  const noteLabel = document.getElementById('noteLabel');
+  const note = document.getElementById('note');
+  let role = 'host';
+
+  const source = (new URLSearchParams(location.search).get('src') || '').slice(0, 60) || null;
+
+  document.querySelectorAll('.toggle button').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      role = btn.dataset.role;
+      document.querySelectorAll('.toggle button').forEach((b) => b.setAttribute('aria-pressed', String(b === btn)));
+      hostOnly.hidden = role !== 'host';
+      submit.textContent = role === 'host' ? 'Save my spot on the list' : 'Tell me when it launches';
+      note.placeholder = role === 'host' ? 'e.g. free weekdays 9–5, near BMO Field' : 'e.g. I park near Scotiabank Arena on game nights';
+      noteLabel.textContent = role === 'host' ? 'Anything we should know? (optional)' : 'Where do you usually need parking? (optional)';
+    });
+  });
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    error.textContent = '';
+    if (form.website.value) return; // bot
+
+    const name = form.name.value.trim();
+    const email = form.email.value.trim();
+    const postal = form.postal.value.trim().toUpperCase().replace(/\s+/g, '');
+    if (!name) return (error.textContent = 'Add your first name.');
+    if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) return (error.textContent = 'That email doesn’t look right.');
+    if (!/^[A-Z]\d[A-Z]\d[A-Z]\d$/.test(postal)) return (error.textContent = 'Enter a postal code like M6K 1A1.');
+
+    const row = {
+      role,
+      name,
+      email,
+      postal_code: `${postal.slice(0, 3)} ${postal.slice(3)}`,
+      spot_type: role === 'host' ? form.type.value : null,
+      spaces: role === 'host' ? Math.min(200, Math.max(1, parseInt(form.spaces.value, 10) || 1)) : null,
+      note: note.value.trim() || null,
+      source,
+    };
+
+    submit.disabled = true;
+    try {
+      const res = await fetch(`${SUPABASE_URL}/rest/v1/waitlist`, {
+        method: 'POST',
+        headers: { apikey: SUPABASE_KEY, 'Content-Type': 'application/json', Prefer: 'return=minimal' },
+        body: JSON.stringify(row),
+      });
+      // 409 = already on the list with this email, which is a success for the person.
+      if (!res.ok && res.status !== 409) throw new Error(String(res.status));
+      document.getElementById('fields').hidden = true;
+      document.getElementById('done').hidden = false;
+      document.getElementById('doneText').textContent = role === 'host'
+        ? `Thanks ${name}! We'll email you before launch to help set up your spot.`
+        : `Thanks ${name}! We'll email you the day Spotlot launches near you.`;
+    } catch {
+      error.textContent = 'Something went wrong. Please try again in a moment.';
+    } finally {
+      submit.disabled = false;
+    }
+  });
+</script>
+</body>
+</html>
