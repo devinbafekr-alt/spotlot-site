@@ -28,6 +28,14 @@
     var to = new URLSearchParams(location.search).get('to') || 'spotlot://auth-callback';
     if (!/^(spotlot|exp|exps):\/\//i.test(to)) to = 'spotlot://auth-callback';
     var target = to + location.hash;
+    // Android's Chrome won't follow a plain custom-scheme redirect into an app; it needs an
+    // intent:// link. The tokens move from the hash to the query, since intents use the hash.
+    if (/Android/i.test(navigator.userAgent)) {
+      var m = to.match(/^([a-z]+):\/\/(.*)$/i);
+      var pkg = m[1].toLowerCase().indexOf('exp') === 0 ? ';package=host.exp.exponent' : '';
+      var query = location.hash ? (m[2].indexOf('?') === -1 ? '?' : '&') + location.hash.slice(1) : '';
+      target = 'intent://' + m[2] + query + '#Intent;scheme=' + m[1] + pkg + ';end';
+    }
     var link = document.getElementById('open');
     link.href = target;
     location.replace(target);
