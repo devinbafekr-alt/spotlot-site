@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Signing you in — Spotlot</title>
+<style>
+  body { margin: 0; min-height: 100vh; display: flex; align-items: center; justify-content: center; background: #0B3D2E; color: #fff;
+         font: 17px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; text-align: center; padding: 24px; }
+  img { width: 96px; }
+  a { color: #F2B705; font-weight: 700; }
+  p { color: #CFE3DA; }
+</style>
+</head>
+<body>
+<main>
+  <img src="../logo.png" alt="">
+  <h1>Signing you in…</h1>
+  <p id="msg">Taking you back to Spotlot.</p>
+  <p><a id="open" href="#" hidden>Open Spotlot</a></p>
+</main>
+<script>
+  // Supabase sends Google sign-ins here; this page hands the login back to the app that
+  // started it (Expo Go during testing, the Spotlot app in production). Only app links are
+  // allowed as destinations, so this can't be used to bounce people to other websites.
+  (function () {
+    var to = new URLSearchParams(location.search).get('to') || 'spotlot://auth-callback';
+    if (!/^(spotlot|exp|exps):\/\//i.test(to)) to = 'spotlot://auth-callback';
+    var target = to + location.hash;
+    var link = document.getElementById('open');
+    link.href = target;
+    location.replace(target);
+    setTimeout(function () {
+      document.getElementById('msg').textContent = "If Spotlot didn't open, tap below.";
+      link.hidden = false;
+    }, 1500);
+  })();
+</script>
+</body>
+</html>
