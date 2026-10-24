@@ -9,40 +9,64 @@
   body { margin: 0; min-height: 100vh; display: flex; align-items: center; justify-content: center; background: #0B3D2E; color: #fff;
          font: 17px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; text-align: center; padding: 24px; }
   img { width: 96px; }
-  a { color: #F2B705; font-weight: 700; }
-  p { color: #CFE3DA; }
+  h1 { margin: 12px 0 6px; }
+  a { display: inline-block; margin-top: 8px; background: #F2B705; color: #0B3D2E; font-weight: 800; padding: 12px 20px; border-radius: 12px; text-decoration: none; }
+  p { color: #CFE3DA; margin: 6px 0; }
 </style>
 </head>
 <body>
 <main>
   <img src="../logo.png" alt="">
-  <h1>Signing you in…</h1>
-  <p id="msg">Taking you back to Spotlot.</p>
-  <p><a id="open" href="#" hidden>Open Spotlot</a></p>
+  <h1 id="title">Signing you in…</h1>
+  <p id="msg">One moment.</p>
+  <p><a id="open" href="#" hidden>Back to Spotlot</a></p>
 </main>
 <script>
-  // Supabase sends Google sign-ins here; this page hands the login back to the app that
-  // started it (Expo Go during testing, the Spotlot app in production). Only app links are
-  // allowed as destinations, so this can't be used to bounce people to other websites.
+  // Supabase sends Google sign-ins here with a one-time PKCE code (useless without the
+  // verifier the app holds). We drop the code off with the auth-handoff function — the app is
+  // polling for it — and also try to jump straight back into the app. Only app links are
+  // allowed as destinations, so this page can't bounce people to other websites.
   (function () {
-    var to = new URLSearchParams(location.search).get('to') || 'spotlot://auth-callback';
+    var q = new URLSearchParams(location.search);
+    var code = q.get('code');
+    var handoff = q.get('h');
+    var to = q.get('to') || 'spotlot://auth-callback';
     if (!/^(spotlot|exp|exps):\/\//i.test(to)) to = 'spotlot://auth-callback';
-    var target = to + location.hash;
-    // Android's Chrome won't follow a plain custom-scheme redirect into an app; it needs an
-    // intent:// link. The tokens move from the hash to the query, since intents use the hash.
-    if (/Android/i.test(navigator.userAgent)) {
-      var m = to.match(/^([a-z]+):\/\/(.*)$/i);
-      var pkg = m[1].toLowerCase().indexOf('exp') === 0 ? ';package=host.exp.exponent' : '';
-      var query = location.hash ? (m[2].indexOf('?') === -1 ? '?' : '&') + location.hash.slice(1) : '';
-      target = 'intent://' + m[2] + query + '#Intent;scheme=' + m[1] + pkg + ';end';
-    }
+    var title = document.getElementById('title');
+    var msg = document.getElementById('msg');
     var link = document.getElementById('open');
+
+    if (q.get('error_description')) {
+      title.textContent = 'Sign-in was cancelled';
+      msg.textContent = q.get('error_description');
+      return;
+    }
+
+    // Deep link back into the app (works on iPhone and in the real app).
+    var target = to + (to.indexOf('?') === -1 ? '?' : '&') + 'code=' + encodeURIComponent(code || '');
+    if (/Android/i.test(navigator.userAgent)) {
+      var m = target.match(/^([a-z]+):\/\/(.*)$/i);
+      var pkg = m[1].toLowerCase().indexOf('exp') === 0 ? ';package=host.exp.exponent' : '';
+      target = 'intent://' + m[2] + '#Intent;scheme=' + m[1] + pkg + ';end';
+    }
     link.href = target;
-    location.replace(target);
-    setTimeout(function () {
-      document.getElementById('msg').textContent = "If Spotlot didn't open, tap below.";
+
+    function done() {
+      title.textContent = "You're signed in!";
+      msg.textContent = 'Close this page to head back to Spotlot.';
       link.hidden = false;
-    }, 1500);
+      try { location.replace(target); } catch (e) {}
+    }
+
+    if (code && handoff) {
+      fetch('https://rsviueqeqylmddhgpyfo.supabase.co/functions/v1/auth-handoff', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ h: handoff, code: code }),
+      }).then(done, done);
+    } else {
+      done();
+    }
   })();
 </script>
 </body>
