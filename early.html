@@ -173,7 +173,9 @@
   const note = document.getElementById('note');
   let role = 'host';
 
-  const source = (new URLSearchParams(location.search).get('src') || '').slice(0, 60) || null;
+  const params = new URLSearchParams(location.search);
+  const ref = (params.get('ref') || '').toLowerCase().replace(/[^a-z0-9]/g, '').slice(0, 20) || null;
+  const source = (params.get('src') || (ref ? 'referral' : '')).slice(0, 60) || null;
 
   document.querySelectorAll('.toggle button').forEach((btn) => {
     btn.addEventListener('click', () => {
@@ -207,6 +209,7 @@
       spaces: role === 'host' ? Math.min(200, Math.max(1, parseInt(form.spaces.value, 10) || 1)) : null,
       note: note.value.trim() || null,
       source,
+      referred_by: ref,
     };
 
     submit.disabled = true;
@@ -221,8 +224,8 @@
       document.getElementById('fields').hidden = true;
       document.getElementById('done').hidden = false;
       document.getElementById('doneText').textContent = role === 'host'
-        ? `Thanks ${name}! We'll email you before launch to help set up your spot.`
-        : `Thanks ${name}! We'll email you the day Spotlot launches near you.`;
+        ? `Thanks ${name}! Check your email for your personal share link. We'll be in touch before launch to help set up your spot.`
+        : `Thanks ${name}! Check your email for your personal share link. We'll let you know the day Spotlot launches near you.`;
     } catch {
       error.textContent = 'Something went wrong. Please try again in a moment.';
     } finally {
